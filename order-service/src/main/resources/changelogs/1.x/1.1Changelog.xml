@@ -1,0 +1,56 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+  <changeSet author="johnm" id="1696152719011-1">
+
+    <createTable tableName="product">
+      <column autoIncrement="true" name="id" type="BIGINT">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="name" type="VARCHAR(255)"/>
+      <column name="quantity" type="INT"/>
+    </createTable>
+
+    <createTable tableName="orders">
+      <column autoIncrement="true" name="id" type="BIGINT">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="customer_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="total_amount" type="BIGINT"/>
+      <column name="status" type="VARCHAR(255)"/>
+      <column name="created_at" type="TIMESTAMP"/>
+      <column name="updated_at" type="TIMESTAMP"/>
+    </createTable>
+
+    <createTable tableName="order_items">
+      <column autoIncrement="true" name="id" type="BIGINT">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="order_id" type="BIGINT"/>
+      <column name="product_id" type="BIGINT"/>
+      <column name="quantity" type="INT"/>
+      <column name="price" type="BIGINT"/>
+    </createTable>
+
+    <addForeignKeyConstraint baseTableName="order_items" baseColumnNames="order_id" referencedTableName="orders" referencedColumnNames="id" constraintName="fk"/>
+    <insert tableName="product">
+      <column name="name" value="Soap"/>
+      <column name="quantity" valueNumeric="50"/>
+    </insert>
+    <insert tableName="product">
+      <column name="name" value="Shampoo"/>
+      <column name="quantity" valueNumeric="20"/>
+    </insert>
+    <insert tableName="product">
+      <column name="name" value="Duck"/>
+      <column name="quantity" valueNumeric="15"/>
+    </insert>
+    <!--    <addForeignKeyConstraint baseTableName="order_items" baseColumnNames="product_id" referencedTableName="product" referencedColumnNames="id" constraintName="fkProduct"/>-->
+
+
+
+
+  </changeSet>
+
+</databaseChangeLog>
